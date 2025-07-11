@@ -38,27 +38,27 @@ export class UsersService {
 
     async getSingle(id:string){
         const user = await this.prisma.user.findFirst({
-            where:{id},
-            select: {
-            id: true,
-            name: true,
-            email: true,
-            age: true,
-            isActive: true,
-            posts: {
+            where:{id:id},
                 select: {
-                title: true,
-                body: true,
-                createdAt: true,
-                comments: {
-                    select: {
-                    body: true,
-                    createdAt: true
+                    id: true,
+                    name: true,
+                    email: true,
+                    age: true,
+                    isActive: true,
+                    posts: {
+                        select: {
+                            title: true,
+                            body: true,
+                            createdAt: true,
+                            comments: {
+                                    select: {
+                                        body: true,
+                                        createdAt: true
+                                        }
+                                }
+                        }
                     }
                 }
-                }
-            }
-            }
         })
         return user
     }
